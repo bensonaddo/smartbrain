@@ -4,6 +4,7 @@ import Logo from './components/Logos/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import Particles from 'react-tsparticles';
+import React, { Component } from 'react';
 
 
 const particlesOptions = {
@@ -40,60 +41,42 @@ const particlesOptions = {
     shape: {
       type: "circle",
     },
-    // interactivity: {
-    //   detect_on: "canvas",
-    //   events: {
-    //     onhover: {
-    //       enable: false,
-    //       mode: "repulse"
-    //     },
-    //     onclick: {
-    //       enable: true,
-    //       mode: "push"
-    //     },
-    //     resize: true
-    //   },
-    //   modes: {
-    //     grab: {
-    //       distance: 800,
-    //       line_linked: {
-    //         opacity: 1
-    //       }
-    //     },
-    //     bubble: {
-    //       distance: 800,
-    //       size: 80,
-    //       duration: 2,
-    //       opacity: 0.8,
-    //       speed: 3
-    //     },
-    //     repulse: {
-    //       distance: 400,
-    //       duration: 0.4
-    //     },
-    //     push: {
-    //       particles_nb: 4
-    //     },
-    //     remove: {
-    //       particles_nb: 2
-    //     }
-    //   }
-    // },
   }
 }
 
-function App() {
-  return (
-    <div className="App">
-      <Particles className='particles' 
-        params={particlesOptions}
-      />
-      <Navigation />
-      <Logo />
-      <Rank />
-      <ImageLinkForm />
-    </div>
-  );
+class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      input: ''
+    }
+  }
+
+  // Input event to monitor inputs
+  onInputChange = (event) => {
+    console.log(event.target.value)
+  }
+
+  // Click event for detect button
+  onButtonSubmit = () => {
+    console.log('click');
+  }
+  render(){
+    return (
+      <div className="App">
+        <Particles className='particles' 
+          params={particlesOptions}
+        />
+        <Navigation />
+        <Logo />
+        <Rank />
+        <ImageLinkForm 
+          onInputChange={this.onInputChange} 
+          onButtonSubmit={this.onButtonSubmit}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
