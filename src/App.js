@@ -99,6 +99,11 @@ class App extends Component {
       .then( response => this.displayFaceBox(this.calculateFaceLocation(response)))
       .catch(err => console.log(err));
   }
+
+  onRouteChange = () => {
+    this.setState({route: 'home'});
+  }
+
   render(){
     return (
       <div className="App">
@@ -107,7 +112,7 @@ class App extends Component {
         />
         <Navigation />
         { this.state.route === 'signin' 
-          ? <Signin /> 
+          ? <Signin onRouteChange={this.onRouteChange}/> 
           : 
           <div>
             <Logo />
