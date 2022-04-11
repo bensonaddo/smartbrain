@@ -5,7 +5,11 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import Particles from 'react-tsparticles';
 import React, { Component } from 'react';
+import Clarifai from 'clarifai';
 
+const app = new Clarifai.App({
+ apiKey: 'd0cbca2fe0ec4edd8af2c3198d65e0ac'
+});
 
 const particlesOptions = {
   // https://www.npmjs.com/package/react-tsparticles
@@ -59,7 +63,20 @@ class App extends Component {
 
   // Click event for detect button
   onButtonSubmit = () => {
-    console.log('click');
+    console.log({app});
+    app.models.predict(
+      "a403429f2ddf4b49b307e318f00e528b", 
+      "https://samples.clarifai.com/face-det.jpg")
+      .then(
+        function(response){
+          // Do something with the response
+          console.log(response);
+        },
+        function(err){
+          // there was an error
+          console.log('Oooops, Error. Please fix:', err);
+        }
+    );
   }
   render(){
     return (
