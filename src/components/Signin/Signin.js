@@ -22,8 +22,18 @@ class Signin extends React.Component {
 
     // Function to submit details when user click submit
     onSubmitSignin = () => {
-        console.log(this.state)
-        
+        // Send the request to the back-end Signin page
+        fetch('http://localhost:3000/signin', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: this.state.signInEmail,
+                password: this.state.signInPassword
+            })
+
+        })
         // This would redirect user to the home page
         // On submit
         this.props.onRouteChange('home')
