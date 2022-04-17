@@ -34,9 +34,14 @@ class Signin extends React.Component {
             })
 
         })
-        // This would redirect user to the home page
-        // On submit
-        this.props.onRouteChange('home')
+            .then(response => response.json())
+            .then(data => {
+                if (data === 'Success'){
+                    // This would redirect user to the home page
+                    // On submit
+                    this.props.onRouteChange('home')
+                }
+            })
     }
     render(){
         const { onRouteChange } = this.props;
