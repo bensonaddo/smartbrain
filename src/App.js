@@ -59,8 +59,26 @@ class App extends Component {
       imageUrl: '',
       box: {},
       route: 'signin',
-      isSignedIn: false
+      isSignedIn: false,
+      // Add this object for register page
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        entries: 0,
+        joined: ''
+      }
     }
+  }
+  // Creating a function that accepts data
+  loadUser = (data) => {
+    this.setState({user: {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined
+    }})
   }
 
   // Added feature to render box info from image detection
@@ -126,7 +144,7 @@ class App extends Component {
         { route === 'home' 
           ? <div>
             <Logo />
-            <Rank />
+            <Rank name={this.state.user.name} entries={this.state.user.entries}/>
             <ImageLinkForm 
               onInputChange={this.onInputChange} 
               onButtonSubmit={this.onButtonSubmit}
@@ -135,9 +153,9 @@ class App extends Component {
         </div>
           : (
             this.state.route === 'signin' ?
-              <Signin onRouteChange={this.onRouteChange}/>
+              <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
             :
-              <Register onRouteChange={this.onRouteChange}/>
+              <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
           )  
         } 
       </div>
