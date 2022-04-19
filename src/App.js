@@ -11,7 +11,7 @@ import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
 
 const app = new Clarifai.App({
- apiKey: 'd0cbca2fe0ec4edd8af2c3198d65e0ac'
+ apiKey: 'Your API Key'
 });
 
 const particlesOptions = {
@@ -116,7 +116,29 @@ class App extends Component {
     app.models.predict(
       Clarifai.FACE_DETECT_MODEL, 
       this.state.input)
-      .then( response => this.displayFaceBox(this.calculateFaceLocation(response)))
+      .then( response => {
+        // If we get a response with the image
+        // Update the image count from back-end
+        if (response){
+          fetch('http://localhost:3000/image', {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: this.state.user.id
+            })
+          })
+            .then(response => response.json())
+            .then(count => {
+              // this.setState({user: {
+              //   entries: count
+              // }})
+              // This would only set the state for the user object
+              // entries and increase the count for it
+              this.setState(Object.assign(this.state.user, { entries: count }))
+            })
+        }
+        this.displayFaceBox(this.calculateFaceLocation(response))})
+      
       .catch(err => console.log(err));
   }
 
