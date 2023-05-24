@@ -15,7 +15,7 @@ const app = new Clarifai.App({
 });
 
 const particlesOptions = {
-  // https://www.npmjs.com/package/react-tsparticles
+  // https://www.npmjs.com/package/react-tsparticles  #Perfect
   particles: {
     line_linked: {
       shadow: {
